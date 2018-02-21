@@ -1,6 +1,10 @@
-ROVER_ID = 1
-TOPIC = "rover/{}/RoverDriving/control".format(ROVER_ID)
-HOSTNAME = "bcx-hono.eastus.cloudapp.azure.com"
-PORT = 1883
-AUTH = {'username': "rover{}@DEFAULT_TENANT".format(ROVER_ID),
-        'password': "hono-rover{}".format(ROVER_ID)}
+rover_id = 1
+topic_control = "rover/{}/RoverDriving/control".format(rover_id)
+topic_telemetry = "rover/{}/telemetry".format(rover_id)
+hostname = "bcx-hono.eastus.cloudapp.azure.com"
+port = 1883
+keepalive = 60
+password = "hono-rover{}".format(rover_id)
+username = "hono-rover{}".format(rover_id)
+auth = {'username': password,
+        'password': username}
