@@ -19,8 +19,8 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    # print(msg.topic+" "+str(msg.payload))
-    frame = json.loads(msg.payload)
+    print(msg.topic+" "+str(msg.payload))
+    frame = json.loads(msg.payload.decode('utf8'))
     frame["timestamp"] = time.time()
     telemetry.append(frame)
     print(frame)
