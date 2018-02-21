@@ -24,3 +24,14 @@ class Sensor_data():
     def getNearestDetectedAngleAndDistance(self):
         index = numpy.argmin(self.getDetectedDistances()[:, 1])
         return self.getDetectedDistances()[index, :]
+
+    def getDetectedDistancesFront(self):
+        return numpy.array([
+            [0, self.usFront],
+            [numpy.pi / 4, self.irFrontLeft],
+            [-numpy.pi / 4, self.irFrontRight],
+        ])
+
+    def getNearestDetectedAngleAndDistanceFront(self):
+        index = numpy.argmin(self.getDetectedDistancesFront()[:, 1])
+        return self.getDetectedDistancesFront()[index, :]

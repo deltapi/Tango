@@ -7,7 +7,7 @@ import paho.mqtt.client as mqtt
 import src.config as cfg
 from src.rover_commands import Rover
 from src.sensor_data import Sensor_data
-from src.stopWhenCloseToObstacle import stopIfObstacleWithinThreshold
+import src.driver_logic as driver_logic
 
 telemetry = []
 f = open("/tmp/test.dat", "a")
@@ -28,7 +28,8 @@ def on_message(client, userdata, msg):
     telemetry.append(frame)
     print(frame)
     sensorData = Sensor_data(frame)
-    stopIfObstacleWithinThreshold(roverController, sensorData.getNearestDetectedAngleAndDistance()[1])
+    #driver_logic.stop_if_obstacle_within_threshold(roverController, sensorData.getNearestDetectedAngleAndDistance()[1])
+    driver_logic.stop_and_rotate_on_obstacle(roverController, sensorData.getNearestDetectedAngleAndDistanceFront()[1])
     print(sensorData.getDetectedDistances())
     f.write(json.dumps(frame))
     f.flush()
