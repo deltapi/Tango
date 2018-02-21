@@ -15,8 +15,8 @@ def test_sensor_data_getDetectedDistances():
 
     distances = sensor_data.getDetectedDistances()
     minimalDistance = sensor_data.getNearestDetectedAngleAndDistance()
-   # print(distances)
-    #print(minimalDistance)
+    print(distances)
+    print(minimalDistance)
 
 
 test_sensor_data_getDetectedDistances()
