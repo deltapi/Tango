@@ -1,4 +1,9 @@
 import paho.mqtt.client as mqtt
+import json
+import time
+
+telemetry = []
+f = open("/tmp/test.dat", "a")
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -10,7 +15,12 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
+    #print(msg.topic+" "+str(msg.payload))
+    frame = json.loads(msg.payload)
+    frame["timestamp"] = time.time()
+    telemetry.append(frame)
+    f.write(json.dumps(frame))
+    f.flush()
 
 client = mqtt.Client()
 client.on_connect = on_connect
@@ -24,3 +34,4 @@ client.connect("bcx-hono.eastus.cloudapp.azure.com", 1883, 60)
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
 client.loop_forever()
+
