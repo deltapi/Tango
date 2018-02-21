@@ -4,4 +4,4 @@ def stopIfObstacleWithinThreshold(roverController, minDistance):
     if (minDistance < Threshold):
         roverController.stop()
     else:
-        roverController.move_forward(speed=100)
+        roverController.forward(speed=100)
