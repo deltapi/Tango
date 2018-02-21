@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import json
 import time
+from src.sensor_data import Sensor_data
 
 import paho.mqtt.client as mqtt
 
@@ -10,7 +11,6 @@ f = open("/tmp/test.dat", "a")
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code " + str(rc))
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
@@ -19,11 +19,12 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
     frame = json.loads(msg.payload.decode('utf8'))
     frame["timestamp"] = time.time()
     telemetry.append(frame)
     print(frame)
+    sensorData = Sensor_data(frame)
+    print(sensorData.getDetectedDistances())
     f.write(json.dumps(frame))
     f.flush()
 
