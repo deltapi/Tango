@@ -1,0 +1,4 @@
+Howto install the mqtt python lib:
+
+pip3 install paho-mqtt
+
