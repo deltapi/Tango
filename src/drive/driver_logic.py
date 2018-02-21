@@ -17,7 +17,7 @@ def stop_and_rotate_on_obstacle(roverController, sensorData):
             roverController.turn_left(350)
         else:
             roverController.turn_right(350)
-        sleep(0.1)
+        sleep(0.03)
         roverController.stop()
     else:
         roverController.forward(150)

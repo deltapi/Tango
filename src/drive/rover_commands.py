@@ -6,7 +6,7 @@ import src.config as cfg
 
 class Rover:
 
-    def __init__(self, client, logfile="/tmp/logfile"):
+    def __init__(self, client, logfile="/tmp/rover_control.log"):
         self._client = client
         self._speed = 100
         self._logfile = open(logfile, 'a')
