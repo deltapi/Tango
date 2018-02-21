@@ -10,6 +10,7 @@ class Sensor_data():
         self.irRearRight = dict['infrared']['rearright']
         self.usFront = dict['ultrasonic']['front']
         self.usRear = dict['ultrasonic']['rear']
+        self.bearing=dict['hmc5883l']['bearing']
 
     def getDetectedDistances(self):
         return numpy.array([

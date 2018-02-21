@@ -5,8 +5,10 @@ def stop_if_obstacle_within_threshold(roverController, minDistance):
     Threshold = 10
     if (minDistance < Threshold):
         roverController.stop()
+        return 0
     else:
         roverController.forward(speed=100)
+        return 100
 
 
 def stop_and_rotate_on_obstacle(roverController, sensorData):
@@ -19,5 +21,7 @@ def stop_and_rotate_on_obstacle(roverController, sensorData):
             roverController.turn_right(350)
         sleep(0.03)
         roverController.stop()
+        return 0
     else:
         roverController.forward(150)
+        return 150

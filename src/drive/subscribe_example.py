@@ -8,10 +8,14 @@ import src.config as cfg
 from src.drive.rover_commands import Rover
 from src.drive.sensor_data import Sensor_data
 import src.drive.driver_logic as driver_logic
+from src.map.position import Position
+from src.map.position_reconstructor import reconstructPosition
+
 
 telemetry = []
 logfile = open("/tmp/rover_sensor.log", "a")
-
+positions = []
+initialBearing = -1.0
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -22,13 +26,18 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
+    global initialBearing
     frame = json.loads(msg.payload.decode('utf8'))
     frame["timestamp"] = time.time()
     telemetry.append(frame)
-    print(frame)
     sensorData = Sensor_data(frame)
-    driver_logic.stop_and_rotate_on_obstacle(roverController, sensorData)
-    print(sensorData.getDetectedDistances())
+    if initialBearing == -1.0:
+        initialBearing = sensorData.bearing
+        positions.append(Position(0, 0))
+
+    forwardSpeed = driver_logic.stop_and_rotate_on_obstacle(roverController, sensorData)
+    currentPosition = reconstructPosition(initialBearing, sensorData.bearing, positions[-1], forwardSpeed)
+    positions.append(currentPosition)
     logfile.write(json.dumps(frame))
     logfile.flush()
 
