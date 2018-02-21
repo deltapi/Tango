@@ -5,7 +5,7 @@
 import paho.mqtt.client as mqtt
 
 import src.config as cfg
-from src.rover_commands import Rover
+from src.drive.rover_commands import Rover
 from time import sleep
 
 def on_connect(client, userdata, flags, rc):

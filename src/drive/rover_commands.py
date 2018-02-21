@@ -1,15 +1,20 @@
 import json
+import time
 
 import src.config as cfg
 
 
 class Rover:
 
-    def __init__(self, client):
+    def __init__(self, client, logfile="/tmp/logfile"):
         self._client = client
         self._speed = 100
+        self._logfile = open(logfile, 'a')
 
     def publish(self, payload):
+        payload['timestamp'] = time.time()
+        self._logfile.write(json.dumps(payload))
+        self._logfile.flush()
         self._client.publish(cfg.topic_control, payload=json.dumps(payload), qos=0)
 
     def forward(self, speed=100):

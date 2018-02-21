@@ -5,9 +5,9 @@ import time
 import paho.mqtt.client as mqtt
 
 import src.config as cfg
-from src.rover_commands import Rover
-from src.sensor_data import Sensor_data
-import src.driver_logic as driver_logic
+from src.drive.rover_commands import Rover
+from src.drive.sensor_data import Sensor_data
+import src.drive.driver_logic as driver_logic
 
 telemetry = []
 f = open("/tmp/test.dat", "a")
@@ -22,7 +22,6 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic + " " + str(msg.payload))
     frame = json.loads(msg.payload.decode('utf8'))
     frame["timestamp"] = time.time()
     telemetry.append(frame)

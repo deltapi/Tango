@@ -10,7 +10,7 @@ def stop_if_obstacle_within_threshold(roverController, minDistance):
 
 
 def stop_and_rotate_on_obstacle(roverController, sensorData):
-    usThreshold = 25
+    usThreshold = 30
     irThreshold = 15
     if sensorData.usFront < usThreshold or sensorData.irFrontRight < irThreshold or sensorData.irFrontLeft < irThreshold:
         if sensorData.irFrontLeft > sensorData.irFrontRight:

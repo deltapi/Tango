@@ -1,4 +1,4 @@
-from src.sensor_data import Sensor_data
+from src.drive.sensor_data import Sensor_data
 
 
 def test_sensor_data_getDetectedDistances():
