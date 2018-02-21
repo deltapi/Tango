@@ -4,7 +4,7 @@ topic_telemetry = "rover/{}/telemetry".format(rover_id)
 hostname = "bcx-hono.eastus.cloudapp.azure.com"
 port = 1883
 keepalive = 60
+username = "rover{}@DEFAULT_TENANT".format(rover_id)
 password = "hono-rover{}".format(rover_id)
-username = "hono-rover{}".format(rover_id)
-auth = {'username': password,
-        'password': username}
+auth = {'username': username,
+        'password': password}
