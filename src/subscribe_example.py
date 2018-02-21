@@ -29,7 +29,7 @@ def on_message(client, userdata, msg):
     print(frame)
     sensorData = Sensor_data(frame)
     #driver_logic.stop_if_obstacle_within_threshold(roverController, sensorData.getNearestDetectedAngleAndDistance()[1])
-    driver_logic.stop_and_rotate_on_obstacle(roverController, sensorData.getNearestDetectedAngleAndDistanceFront()[1])
+    driver_logic.stop_and_rotate_on_obstacle(roverController, sensorData)
     print(sensorData.getDetectedDistances())
     f.write(json.dumps(frame))
     f.flush()
