@@ -6,7 +6,7 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("rover/2/telemetry", 0)
+    client.subscribe("rover/1/telemetry", 0)
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
@@ -15,7 +15,7 @@ def on_message(client, userdata, msg):
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-client.username_pw_set("rover2@DEFAULT_TENANT", "hono-rover2")
+client.username_pw_set("rover1@DEFAULT_TENANT", "hono-rover1")
 
 client.connect("bcx-hono.eastus.cloudapp.azure.com", 1883, 60)
 
