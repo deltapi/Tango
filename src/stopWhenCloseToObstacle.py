@@ -1,5 +1,5 @@
 def stopIfObstacleWithinThreshold(roverController, minDistance):
-    Threshold = 10
+    Threshold = 30
     print("Min Distance: " + str(minDistance))
     if (minDistance < Threshold):
         roverController.stop()
