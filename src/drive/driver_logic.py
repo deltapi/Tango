@@ -16,12 +16,14 @@ def stop_and_rotate_on_obstacle(roverController, sensorData):
     irThreshold = 15
     if sensorData.usFront < usThreshold or sensorData.irFrontRight < irThreshold or sensorData.irFrontLeft < irThreshold:
         if sensorData.irFrontLeft > sensorData.irFrontRight:
-            roverController.turn_left(400)
+            roverController.turn_left(350)
+            returnValue = -1
         else:
-            roverController.turn_right(400)
-        sleep(0.2)
+            roverController.turn_right(350)
+            returnValue = -2
+        sleep(0.03)
         roverController.stop()
-        return 0
+        return returnValue
     else:
-        roverController.forward(400)
-        return 150
+        roverController.forward(150)
+        return 7

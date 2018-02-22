@@ -11,6 +11,7 @@ class Sensor_data():
         self.usFront = dict['ultrasonic']['front']
         self.usRear = dict['ultrasonic']['rear']
         self.bearing=dict['hmc5883l']['bearing']
+        self.timestamp=dict['timestamp']
 
     def getDetectedDistances(self):
         return numpy.array([
