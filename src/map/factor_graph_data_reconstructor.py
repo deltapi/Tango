@@ -22,28 +22,33 @@ def reconstructOdometry(receivedSensorData, forwardSpeed):
             "timestamp": 0.0
         }
         sensor_data = Sensor_data(dict)
-        return FactorGraphData(0, sensor_data)
+        return FactorGraphData(0, 0, sensor_data)
     lastSnapshot = receivedSensorData[-2]
     currentSnapshot = receivedSensorData[-1]
     deltaTime = currentSnapshot.timestamp - lastSnapshot.timestamp
 
     print(currentSnapshot.bearing, lastSnapshot.bearing)
 
-    newSensorData = currentSnapshot
-    newSensorData.bearing = 0
+    # Hardcode turn angle
     averageTurnAngle = 18
+    # Soft code turn anlge
+    # averageTurnAngle = (((currentSnapshot.bearing - lastSnapshot.bearing) + 180) % 360) - 180
+
     if forwardSpeed > 0:
         deltaX = deltaTime * forwardSpeed
-        odometry = FactorGraphData(deltaX, newSensorData)
+        odometry = FactorGraphData(deltaX, 0, currentSnapshot)
+    # if forwardSpeed < 0:
+    #     deltaX = 0
+    #     deltaBearingInRadians = numpy.pi / 180. * averageTurnAngle
+    #     currentSnapshot.bearing = deltaBearingInRadians
+    #     odometry = FactorGraphData(deltaX, currentSnapshot)
     if forwardSpeed == -1:
         deltaX = 0
         deltaBearingInRadians = numpy.pi / 180. * averageTurnAngle
-        newSensorData.bearing = deltaBearingInRadians
-        odometry = FactorGraphData(deltaX, newSensorData)
+        odometry = FactorGraphData(deltaX, deltaBearingInRadians, currentSnapshot)
     if forwardSpeed == -2:
         deltaX = 0
         deltaBearingInRadians = -numpy.pi / 180. * averageTurnAngle
-        newSensorData.bearing = deltaBearingInRadians
-        odometry = FactorGraphData(deltaX, newSensorData)
+        odometry = FactorGraphData(deltaX, deltaBearingInRadians, currentSnapshot)
 
     return odometry

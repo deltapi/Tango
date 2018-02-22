@@ -2,10 +2,11 @@ import numpy
 
 
 class FactorGraphData():
-    def __init__(self, x, sensorData):
+    def __init__(self, x, deltaBearing, sensorData):
         print(sensorData)
         self.deltaX = x
-        self.deltaBearing = sensorData.bearing  # in radians, and mathematical orientation
+        self.deltaBearing = deltaBearing  # in radians, and mathematical orientation
+        self.currentBearing = sensorData.bearing
         self.observations = self.extractObservations(sensorData)
 
     def __str__(self):
